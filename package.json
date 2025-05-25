@@ -1,6 +1,6 @@
 {
   "name": "twitch-regex",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Regular expressions for twitch clips, videos, channels and collections links",
   "keywords": [
     "twitch",

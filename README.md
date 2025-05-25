@@ -40,8 +40,8 @@ for (const url of URLS) {
   console.log(groups);
 }
 
-// { channel: undefined, id: 'CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy' }
-// { channel: 'xqc', id: 'CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy' }
+// { channel: undefined, slug: 'CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy' }
+// { channel: 'xqc', slug: 'CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy' }
 ```
 
 ### Custom regex

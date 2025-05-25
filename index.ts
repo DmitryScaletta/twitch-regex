@@ -1,9 +1,9 @@
 // clip
-// https://regex101.com/r/Z5Ee64/2
+// https://regex101.com/r/Z5Ee64/3
 export const CLIP_REGEX_STRING =
-  'https?:\\/\\/(?:clips\\.twitch\\.tv\\/(?:embed\\?.*?\\bclip=|\\/*)|(?:(?:www|go|m)\\.)?twitch\\.tv\\/(?:(?<channel>[^/]+)\\/)?clip\\/)(?<id>[\\w-]+)\\S*';
+  'https?:\\/\\/(?:clips\\.twitch\\.tv\\/(?:embed\\?.*?\\bclip=|\\/*)|(?:(?:www|go|m)\\.)?twitch\\.tv\\/(?:(?<channel>[^/]+)\\/)?clip\\/)(?<slug>[\\w-]+)\\S*';
 export const CLIP_REGEX_EXACT = new RegExp(`^${CLIP_REGEX_STRING}$`);
-export type ClipMatchGroups = { id: string; channel?: string };
+export type ClipMatchGroups = { slug: string; channel?: string };
 
 // video
 // https://regex101.com/r/ecmX1l/4

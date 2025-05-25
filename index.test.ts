@@ -11,17 +11,17 @@ import {
   type VideoMatchGroups,
 } from './index.ts';
 
-const CLIP_ID = 'CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy';
+const CLIP_SLUG = 'CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy';
 const CLIP_CHANNEL = 'xqc';
 // prettier-ignore
 const CLIPS: [string, ClipMatchGroups][] = [
-  ['https://clips.twitch.tv/CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy',            { channel: undefined,    id: CLIP_ID }],
-  ['https://www.twitch.tv/xqc/clip/CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy',     { channel: CLIP_CHANNEL, id: CLIP_ID }],
-  ['https://m.twitch.tv/xqc/clip/CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy',       { channel: CLIP_CHANNEL, id: CLIP_ID }],
-  ['https://m.twitch.tv/clip/CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy',           { channel: undefined,    id: CLIP_ID }],
-  ['https://go.twitch.tv/xqc/clip/CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy',      { channel: CLIP_CHANNEL, id: CLIP_ID }],
-  ['https://clips.twitch.tv/embed?clip=CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy', { channel: undefined,    id: CLIP_ID }],
-  ['https://clips.twitch.tv/embed?parent=example.com&clip=CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy', { channel: undefined, id: CLIP_ID }],
+  ['https://clips.twitch.tv/CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy',            { channel: undefined,    slug: CLIP_SLUG }],
+  ['https://www.twitch.tv/xqc/clip/CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy',     { channel: CLIP_CHANNEL, slug: CLIP_SLUG }],
+  ['https://m.twitch.tv/xqc/clip/CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy',       { channel: CLIP_CHANNEL, slug: CLIP_SLUG }],
+  ['https://m.twitch.tv/clip/CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy',           { channel: undefined,    slug: CLIP_SLUG }],
+  ['https://go.twitch.tv/xqc/clip/CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy',      { channel: CLIP_CHANNEL, slug: CLIP_SLUG }],
+  ['https://clips.twitch.tv/embed?clip=CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy', { channel: undefined,    slug: CLIP_SLUG }],
+  ['https://clips.twitch.tv/embed?parent=example.com&clip=CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy', { channel: undefined, slug: CLIP_SLUG }],
 ] as const;
 
 // prettier-ignore

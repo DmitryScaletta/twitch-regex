@@ -1,0 +1,43 @@
+{
+  "name": "twitch-regex",
+  "version": "0.1.0",
+  "description": "Regular expressions for twitch clips, videos, channels and collections links",
+  "keywords": [
+    "twitch",
+    "regex",
+    "regexp",
+    "regular expressions"
+  ],
+  "author": "DmitryScaletta",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DmitryScaletta/twitch-regex.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DmitryScaletta/twitch-regex/issues"
+  },
+  "types": "dist/index.d.ts",
+  "module": "dist/index.js",
+  "main": "dist/index.cjs",
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "scripts": {
+    "build": "tsup",
+    "test": "node --test **/*.test.ts",
+    "test:watch": "node --test --watch **/*.test.ts",
+    "test:types": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.21",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3"
+  },
+  "packageManager": "pnpm@9.15.9+sha512.68046141893c66fad01c079231128e9afb89ef87e2691d69e4d40eee228988295fd4682181bae55b58418c3a253bde65a505ec7c5f9403ece5cc3cd37dcf2531"
+}

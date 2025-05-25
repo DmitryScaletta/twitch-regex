@@ -30,7 +30,7 @@ const VIDEOS: [string, VideoMatchGroups][] = [
   ['https://www.twitch.tv/videos/1816688726?filter=uploads&sort=time', { channel: undefined,  id: '1816688726',}],
   ['https://www.twitch.tv/twitch/v/1816688726?t=5m10s',                { channel: 'twitch',   id: '1816688726', }],
   ['https://www.twitch.tv/twitch/video/1816688726',                    { channel: 'twitch',   id: '1816688726', }],
-  ['https://www.twitch.tv/tangotek/schedule?vodID=1822395420',         { channel: 'tangotek', id: '1822395420', }],
+  ['https://www.twitch.tv/tangotek/schedule?vodID=1822395420',         { channel: undefined,  id: '1822395420', }],
   ['https://m.twitch.tv/twitch/v/1816688726',                          { channel: 'twitch',   id: '1816688726', }],
   ['https://player.twitch.tv/?video=v1816688726&parent=example.com&autoplay=false', { channel: undefined , id: '1816688726',}],
   ['https://player.twitch.tv/?autoplay=false&video=v1816688726&parent=example.com', { channel: undefined , id: '1816688726',}],

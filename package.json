@@ -1,10 +1,11 @@
 {
   "private": true,
   "scripts": {
-    "build": "pnpm --filter twitch-regex build",
-    "test": "pnpm --filter twitch-regex test",
-    "test:watch": "pnpm --filter twitch-regex test:watch",
-    "test:types": "pnpm --filter twitch-regex test:types",
+    "build": "node scripts/build.ts",
+    "build:ts": "pnpm --filter twitch-regex build",
+    "test:ts": "pnpm --filter twitch-regex test",
+    "test:ts:watch": "pnpm --filter twitch-regex test:watch",
+    "test:ts:types": "pnpm --filter twitch-regex test:types",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "fmt": "oxfmt",

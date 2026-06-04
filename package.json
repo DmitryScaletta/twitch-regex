@@ -1,5 +1,6 @@
 {
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "node scripts/build.ts",
     "build:ts": "pnpm --filter twitch-regex build",

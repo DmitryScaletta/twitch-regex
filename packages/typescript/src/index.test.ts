@@ -1,12 +1,12 @@
 import assert from 'node:assert';
 import { describe, it } from 'node:test';
+import casesJson from '../../../tests.json' with { type: 'json' };
 import {
   CHANNEL_REGEX_EXACT,
   CLIP_REGEX_EXACT,
   COLLECTION_REGEX_EXACT,
   VIDEO_REGEX_EXACT,
 } from './index.ts';
-import casesJson from '../../../tests.json' with { type: 'json' };
 
 type Groups = Record<string, string | null>;
 type Case = [url: string, groups: Groups];

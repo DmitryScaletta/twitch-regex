@@ -1,0 +1,106 @@
+{
+  "clips": [
+    [
+      "https://clips.twitch.tv/CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy",
+      { "slug": "CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy", "channel": null }
+    ],
+    [
+      "https://www.twitch.tv/xqc/clip/CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy",
+      { "slug": "CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy", "channel": "xqc" }
+    ],
+    [
+      "https://m.twitch.tv/xqc/clip/CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy",
+      { "slug": "CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy", "channel": "xqc" }
+    ],
+    [
+      "https://m.twitch.tv/clip/CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy",
+      { "slug": "CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy", "channel": null }
+    ],
+    [
+      "https://go.twitch.tv/xqc/clip/CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy",
+      { "slug": "CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy", "channel": "xqc" }
+    ],
+    [
+      "https://clips.twitch.tv/embed?clip=CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy",
+      { "slug": "CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy", "channel": null }
+    ],
+    [
+      "https://clips.twitch.tv/embed?parent=example.com&clip=CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy",
+      { "slug": "CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy", "channel": null }
+    ]
+  ],
+  "videos": [
+    [
+      "https://www.twitch.tv/videos/1816688726",
+      { "id": "1816688726", "channel": null }
+    ],
+    [
+      "https://www.twitch.tv/videos/1816688726?filter=uploads&sort=time",
+      { "id": "1816688726", "channel": null }
+    ],
+    [
+      "https://www.twitch.tv/twitch/v/1816688726?t=5m10s",
+      { "id": "1816688726", "channel": "twitch" }
+    ],
+    [
+      "https://www.twitch.tv/twitch/video/1816688726",
+      { "id": "1816688726", "channel": "twitch" }
+    ],
+    [
+      "https://www.twitch.tv/tangotek/schedule?vodID=1822395420",
+      { "id": "1822395420", "channel": null }
+    ],
+    [
+      "https://m.twitch.tv/twitch/v/1816688726",
+      { "id": "1816688726", "channel": "twitch" }
+    ],
+    [
+      "https://player.twitch.tv/?video=v1816688726&parent=example.com&autoplay=false",
+      { "id": "1816688726", "channel": null }
+    ],
+    [
+      "https://player.twitch.tv/?autoplay=false&video=v1816688726&parent=example.com",
+      { "id": "1816688726", "channel": null }
+    ]
+  ],
+  "channels": [
+    [
+      "https://www.twitch.tv/summit1g",
+      { "channel": "summit1g" }
+    ],
+    [
+      "https://m.twitch.tv/xqc",
+      { "channel": "xqc" }
+    ],
+    [
+      "https://go.twitch.tv/xqc",
+      { "channel": "xqc" }
+    ],
+    [
+      "https://player.twitch.tv/?channel=lirik",
+      { "channel": "lirik" }
+    ],
+    [
+      "https://player.twitch.tv/?muted=true&channel=lirik&parent=example.com",
+      { "channel": "lirik" }
+    ]
+  ],
+  "collections": [
+    [
+      "https://www.twitch.tv/collections/KVe_rYFMGxiPsA",
+      { "id": "KVe_rYFMGxiPsA" }
+    ],
+    [
+      "https://www.twitch.tv/collections/JJ-N82-m4BfH4A",
+      { "id": "JJ-N82-m4BfH4A" }
+    ],
+    [
+      "https://player.twitch.tv/?collection=abcDeF1ghIJ2kL&parent=example.com",
+      { "id": "abcDeF1ghIJ2kL" }
+    ],
+    [
+      "https://player.twitch.tv/?parent=example.com&collection=abcDeF1ghIJ2kL",
+      { "id": "abcDeF1ghIJ2kL" }
+    ]
+  ]
+}

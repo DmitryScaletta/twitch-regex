@@ -23,6 +23,5 @@ export type ChannelMatchGroups = { channel: string };
 // https://regex101.com/r/lyLBUW/1
 export const COLLECTION_REGEX_STRING =
   'https?:\\/\\/(?:(?:(?:www|go|m)\\.)?twitch\\.tv\\/collections\\/|player\\.twitch\\.tv\\/\\?.*?\\bcollection=)(?<id>[\\w-]+)\\S*';
-// prettier-ignore
 export const COLLECTION_REGEX_EXACT = new RegExp(`^${COLLECTION_REGEX_STRING}$`);
 export type CollectionMatchGroups = { id: string };

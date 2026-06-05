@@ -1,6 +1,6 @@
 # twitch-regex
 
-Regular expressions for twitch clips, videos, channels and collections links
+Regular expressions for Twitch clips, videos, channels and collections links
 
 ## Features
 

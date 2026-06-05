@@ -9,7 +9,7 @@
     "test:ts": "pnpm --filter twitch-regex test",
     "test:ts:watch": "pnpm --filter twitch-regex test:watch",
     "test:ts:types": "pnpm --filter twitch-regex test:types",
-    "test:py": "cd packages/python && python -m unittest discover",
+    "test:py": "python -m unittest discover -v -s packages/python/tests",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "fmt": "oxfmt",

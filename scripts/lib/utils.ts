@@ -11,6 +11,7 @@ export const PATHS = {
   PY_PKG: path.join(ROOT, 'packages', 'python', 'pyproject.toml'),
   RS_OUTPUT: path.join(ROOT, 'packages', 'rust', 'src', 'lib.rs'),
   RS_PKG: path.join(ROOT, 'packages', 'rust', 'Cargo.toml'),
+  GO_OUTPUT: path.join(ROOT, 'packages', 'go', 'regex.go'),
 };
 
 export type SectionMatchGroups = {

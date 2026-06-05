@@ -1,4 +1,5 @@
 import * as fsp from 'node:fs/promises';
+import { generateGo } from './generators/go.ts';
 import { generatePy } from './generators/python.ts';
 import { generateRs } from './generators/rust.ts';
 import { generateTs } from './generators/typescript.ts';
@@ -14,6 +15,7 @@ const main = async () => {
     generateTs(sections, description),
     generatePy(sections, description),
     generateRs(sections, description),
+    generateGo(sections, description),
   ]);
 };
 

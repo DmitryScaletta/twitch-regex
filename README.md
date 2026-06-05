@@ -153,7 +153,58 @@ for match in re.finditer(f'^{CHANNEL_REGEX_STRING}$', list, re.M):
 
 ## Rust
 
-TODO
+### Installation
+
+```toml
+[dependencies]
+twitch-regex = "0.1"
+```
+
+### Usage
+
+```rust
+use twitch_regex::{
+  CLIP_REGEX_EXACT, VIDEO_REGEX_STRING,
+  CHANNEL_REGEX_STRING, ClipMatchGroups,
+  VideoMatchGroups, ChannelMatchGroups,
+};
+
+// Exact match
+let clip = "https://www.twitch.tv/xqc/clip/CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy";
+let caps = CLIP_REGEX_EXACT.captures(clip).unwrap();
+let groups = ClipMatchGroups {
+  slug: caps.name("slug").unwrap().as_str().to_owned(),
+  channel: caps.name("channel").map(|m| m.as_str().to_owned()),
+};
+println!("{:#?}", groups);
+// ClipMatchGroups { slug: "CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy", channel: Some("xqc") }
+
+// Custom regex (global)
+let text = "Look at these videos https://www.twitch.tv/videos/1816688726\nand https://m.twitch.tv/twitch/v/1816688726?t=10s";
+let video_re = twitch_regex::regex::Regex::new(VIDEO_REGEX_STRING).unwrap();
+for caps in video_re.captures_iter(text) {
+  let groups = VideoMatchGroups {
+    id: caps.name("id").unwrap().as_str().to_owned(),
+    channel: caps.name("channel").map(|m| m.as_str().to_owned()),
+  };
+  println!("{:#?}", groups);
+}
+// VideoMatchGroups { id: "1816688726", channel: None }
+// VideoMatchGroups { id: "1816688726", channel: Some("twitch") }
+
+// Custom regex (exact, multi line)
+let list = "https://www.twitch.tv/summit1g\nhttps://m.twitch.tv/xqc\nhttps://player.twitch.tv/?channel=lirik";
+let channel_re = twitch_regex::regex::Regex::new(&format!("^{}$", CHANNEL_REGEX_STRING)).unwrap();
+for caps in channel_re.captures_iter(list) {
+  let groups = ChannelMatchGroups {
+    channel: caps.name("channel").unwrap().as_str().to_owned(),
+  };
+  println!("{:#?}", groups);
+}
+// ChannelMatchGroups { channel: "summit1g" }
+// ChannelMatchGroups { channel: "xqc" }
+// ChannelMatchGroups { channel: "lirik" }
+```
 
 ## Go
 

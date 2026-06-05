@@ -9,6 +9,8 @@ export const PATHS = {
   TS_PKG: path.join(ROOT, 'packages', 'typescript', 'package.json'),
   PY_OUTPUT: path.join(ROOT, 'packages', 'python', 'twitch_regex', '__init__.py'),
   PY_PKG: path.join(ROOT, 'packages', 'python', 'pyproject.toml'),
+  RS_OUTPUT: path.join(ROOT, 'packages', 'rust', 'src', 'lib.rs'),
+  RS_PKG: path.join(ROOT, 'packages', 'rust', 'Cargo.toml'),
 };
 
 export type SectionMatchGroups = {

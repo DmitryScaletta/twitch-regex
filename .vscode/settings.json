@@ -10,9 +10,14 @@
     "editor.defaultFormatter": "oxc.oxc-vscode"
   },
   "cSpell.words": [
+    "finditer",
+    "groupdict",
     "oxfmt",
     "oxlint",
     "pcre",
+    "println",
+    "subexp",
+    "submatch",
     "venv"
   ]
 }

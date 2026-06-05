@@ -1,109 +1,15 @@
 import * as fsp from 'node:fs/promises';
-import * as path from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.join(__dirname, '..');
-const PATHS = {
-  README: path.join(ROOT, 'README.md'),
-  TS_OUTPUT: path.join(ROOT, 'packages', 'typescript', 'src', 'index.ts'),
-  TS_PKG: path.join(ROOT, 'packages', 'typescript', 'package.json'),
-  PY_OUTPUT: path.join(ROOT, 'packages', 'python', 'twitch_regex', '__init__.py'),
-  PY_PKG: path.join(ROOT, 'packages', 'python', 'pyproject.toml'),
-};
-
-type SectionMatchGroups = {
-  name: string;
-  regex: string;
-  url: string;
-  groups: string;
-};
-
-const parseReadme = (content: string) => {
-  const DESC_REGEX = /^#\s+\S[^\n]*\n\n([\s\S]+?)\n\n/;
-  const m = content.match(DESC_REGEX);
-  if (!m) throw new Error('No description found in README');
-  const description = m[1]!.trim();
-
-  const SECTION_REGEX =
-    /### (?<name>\w+)\s*\n+(?<url>https:\/\/regex101\.com\/r\/\S+)\s*\n`type \w+ = (?<groups>\{[^}]+\});`\s*\n+```regex\n(?<regex>[\s\S]+?)\n```/g;
-  const sections: SectionMatchGroups[] = [];
-  for (const m of content.matchAll(SECTION_REGEX)) {
-    sections.push(m.groups as SectionMatchGroups);
-  }
-  if (sections.length === 0) throw new Error('No sections found in README');
-
-  return { description, sections };
-};
-
-const generateTs = async (sections: SectionMatchGroups[]) => {
-  const renderSection = (section: SectionMatchGroups) => {
-    const nameUpper = section.name.toUpperCase();
-    return [
-      `// ${section.name.toLowerCase()}`,
-      `// ${section.url}`,
-      `export const ${nameUpper}_REGEX_STRING =`,
-      `  '${section.regex.replaceAll('\\', '\\\\')}';`,
-      `export const ${nameUpper}_REGEX_EXACT = new RegExp(\`^\${${nameUpper}_REGEX_STRING}$\`);`,
-      `export type ${section.name}MatchGroups = ${section.groups};`,
-    ].join('\n');
-  };
-  const sectionsContent = sections.map(renderSection).join('\n\n');
-  const tsContent = `// generated\n\n${sectionsContent}\n`;
-
-  await fsp.writeFile(PATHS.TS_OUTPUT, tsContent);
-  console.log(`TypeScript: Generated ${PATHS.TS_OUTPUT}`);
-};
-
-const updateMetaTs = async (description: string) => {
-  const content = await fsp.readFile(PATHS.TS_PKG, 'utf-8');
-  const updated = content.replace(
-    /(\s*)"description":\s*"[^"]*"/,
-    `$1"description": "${description}"`,
-  );
-  await fsp.writeFile(PATHS.TS_PKG, updated, 'utf-8');
-  console.log(`TypeScript: Updated ${PATHS.TS_PKG}`);
-};
-
-const jsToPcre = (jsRegex: string) =>
-  jsRegex.replaceAll(/\(\?<(\w+)>/g, '(?P<$1>').replaceAll('\\/', '/');
-
-const generatePy = async (sections: SectionMatchGroups[]) => {
-  const renderSection = (section: SectionMatchGroups) => {
-    const nameUpper = section.name.toUpperCase();
-    return [
-      `# ${section.name.toLowerCase()}`,
-      `# ${section.url}`,
-      `${nameUpper}_REGEX_STRING = r'${jsToPcre(section.regex)}'`,
-      `${nameUpper}_REGEX_EXACT = re.compile(f'^{${nameUpper}_REGEX_STRING}$')`,
-    ].join('\n');
-  };
-  const sectionsContent = sections.map(renderSection).join('\n\n');
-  const pyContent = `# generated\n\nimport re\n\n${sectionsContent}\n`;
-
-  await fsp.writeFile(PATHS.PY_OUTPUT, pyContent);
-  console.log(`Python: Generated ${PATHS.PY_OUTPUT}`);
-};
-
-const updateMetaPy = async (description: string) => {
-  const content = await fsp.readFile(PATHS.PY_PKG, 'utf-8');
-  const updated = content.replace(/^(description\s*=\s*')([^']*)(')/m, `$1${description}$3`);
-  await fsp.writeFile(PATHS.PY_PKG, updated, 'utf-8');
-  console.log(`Python: Updated ${PATHS.PY_PKG}`);
-};
+import { generatePy } from './generators/python.ts';
+import { generateTs } from './generators/typescript.ts';
+import { PATHS, parseReadme } from './lib/utils.ts';
 
 const main = async () => {
   const readme = await fsp.readFile(PATHS.README, 'utf-8');
   const { description, sections } = parseReadme(readme);
-  console.log(`Description: ${description}`);
-  console.log(`Parsed: ${sections.map((s) => s.name).join(', ')}`);
+  console.log(`desc:\t${description}`);
+  console.log(`parsed:\t${sections.map((s) => s.name).join(', ')}`);
 
-  await Promise.all([
-    generateTs(sections),
-    updateMetaTs(description),
-    generatePy(sections),
-    updateMetaPy(description),
-  ]);
+  await Promise.all([generateTs(sections, description), generatePy(sections, description)]);
 };
 
 main().catch((err) => {

@@ -4,9 +4,12 @@
   "scripts": {
     "build": "node scripts/build.ts",
     "build:ts": "pnpm --filter twitch-regex build",
+    "build:py": "cd packages/python && .venv/Scripts/flit build --no-use-vcs",
+    "publish:py": "cd packages/python && .venv/Scripts/flit publish --no-use-vcs",
     "test:ts": "pnpm --filter twitch-regex test",
     "test:ts:watch": "pnpm --filter twitch-regex test:watch",
     "test:ts:types": "pnpm --filter twitch-regex test:types",
+    "test:py": "cd packages/python && python -m unittest discover",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "fmt": "oxfmt",

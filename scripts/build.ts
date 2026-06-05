@@ -8,6 +8,8 @@ const PATHS = {
   README: path.join(ROOT, 'README.md'),
   TS_OUTPUT: path.join(ROOT, 'packages', 'typescript', 'src', 'index.ts'),
   TS_PKG: path.join(ROOT, 'packages', 'typescript', 'package.json'),
+  PY_OUTPUT: path.join(ROOT, 'packages', 'python', 'twitch_regex', '__init__.py'),
+  PY_PKG: path.join(ROOT, 'packages', 'python', 'pyproject.toml'),
 };
 
 type SectionMatchGroups = {
@@ -63,13 +65,45 @@ const updateMetaTs = async (description: string) => {
   console.log(`TypeScript: Updated ${PATHS.TS_PKG}`);
 };
 
+const jsToPcre = (jsRegex: string) =>
+  jsRegex.replaceAll(/\(\?<(\w+)>/g, '(?P<$1>').replaceAll('\\/', '/');
+
+const generatePy = async (sections: SectionMatchGroups[]) => {
+  const renderSection = (section: SectionMatchGroups) => {
+    const nameUpper = section.name.toUpperCase();
+    return [
+      `# ${section.name.toLowerCase()}`,
+      `# ${section.url}`,
+      `${nameUpper}_REGEX_STRING = r'${jsToPcre(section.regex)}'`,
+      `${nameUpper}_REGEX_EXACT = re.compile(f'^{${nameUpper}_REGEX_STRING}$')`,
+    ].join('\n');
+  };
+  const sectionsContent = sections.map(renderSection).join('\n\n');
+  const pyContent = `# generated\n\nimport re\n\n${sectionsContent}\n`;
+
+  await fsp.writeFile(PATHS.PY_OUTPUT, pyContent);
+  console.log(`Python: Generated ${PATHS.PY_OUTPUT}`);
+};
+
+const updateMetaPy = async (description: string) => {
+  const content = await fsp.readFile(PATHS.PY_PKG, 'utf-8');
+  const updated = content.replace(/^(description\s*=\s*')([^']*)(')/m, `$1${description}$3`);
+  await fsp.writeFile(PATHS.PY_PKG, updated, 'utf-8');
+  console.log(`Python: Updated ${PATHS.PY_PKG}`);
+};
+
 const main = async () => {
   const readme = await fsp.readFile(PATHS.README, 'utf-8');
   const { description, sections } = parseReadme(readme);
   console.log(`Description: ${description}`);
   console.log(`Parsed: ${sections.map((s) => s.name).join(', ')}`);
 
-  await Promise.all([generateTs(sections), updateMetaTs(description)]);
+  await Promise.all([
+    generateTs(sections),
+    updateMetaTs(description),
+    generatePy(sections),
+    updateMetaPy(description),
+  ]);
 };
 
 main().catch((err) => {

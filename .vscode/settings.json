@@ -8,5 +8,11 @@
   },
   "[markdown]": {
     "editor.defaultFormatter": "oxc.oxc-vscode"
-  }
+  },
+  "cSpell.words": [
+    "oxfmt",
+    "oxlint",
+    "pcre",
+    "venv"
+  ]
 }

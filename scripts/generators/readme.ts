@@ -29,7 +29,7 @@ export const generateReadme = async (lang: Language) => {
   const features = `${extractFeaturesBlock(readme)}\n\n`;
   const packagesSection = `## Packages\n\n${rewritePackagesRow(readme, lang)}\n\n`;
   const languageSection = extractLanguageSection(readme, lang);
-  const content = `${title}${features}${packagesSection}${languageSection}\n`;
+  const content = `<!-- generated -->\n\n${title}${features}${packagesSection}${languageSection}\n`;
   await fsp.writeFile(README_PATHS[lang], content);
   console.log(`readme:\tgen ${README_PATHS[lang]} (${languageName(lang)})`);
 };

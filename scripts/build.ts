@@ -1,6 +1,7 @@
 import * as fsp from 'node:fs/promises';
 import { generateGo } from './generators/go.ts';
 import { generatePy } from './generators/python.ts';
+import { generateAllReadmes } from './generators/readme.ts';
 import { generateRs } from './generators/rust.ts';
 import { generateTs } from './generators/typescript.ts';
 import { PATHS, parseReadme } from './lib/utils.ts';
@@ -16,6 +17,7 @@ const main = async () => {
     generatePy(sections, description),
     generateRs(sections, description),
     generateGo(sections, description),
+    generateAllReadmes(),
   ]);
 };
 

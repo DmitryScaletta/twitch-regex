@@ -11,14 +11,11 @@ Regular expressions for Twitch clips, videos, channels and collections links
   - Collections
 - Regexes as strings (without `^` and `$`)
 - Regexes for exact match (with `^` and `$`)
-- Types for named capturing groups
+- Types for named capturing groups (TypeScript)
 
 ## Packages
 
-- [TypeScript](#typescript)
-- [Python](#python)
-- [Rust](#rust)
-- [Go](#go)
+[TypeScript](#typescript) | [Python](#python) | [Rust](#rust) | [Go](#go)
 
 ## Regexes
 

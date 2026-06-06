@@ -45,6 +45,32 @@ export const parseReadme = (content: string) => {
 export const jsToPcre = (jsRegex: string) =>
   jsRegex.replaceAll(/\(\?<(\w+)>/g, '(?P<$1>').replaceAll('\\/', '/');
 
+export type GroupField = { name: string; pyType: string; optional: boolean };
+
+const PY_TYPES_MAP: Record<string, string> = {
+  string: 'str',
+  number: 'int',
+  boolean: 'bool',
+};
+
+export const parseGroups = (groups: string): GroupField[] => {
+  const body = groups.replace(/^\{|\}$/g, '').trim();
+  if (!body) return [];
+  return body
+    .split(';')
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .map((field) => {
+      const colonIdx = field.indexOf(':');
+      if (colonIdx === -1) throw new Error(`Invalid group field: "${field}"`);
+      const rawName = field.slice(0, colonIdx).trim();
+      const rawType = field.slice(colonIdx + 1).trim();
+      const optional = rawName.endsWith('?');
+      const name = optional ? rawName.slice(0, -1) : rawName;
+      return { name, pyType: PY_TYPES_MAP[rawType] || rawType, optional };
+    });
+};
+
 export const LANGUAGES = ['typescript', 'python', 'rust', 'go'] as const;
 export type Language = (typeof LANGUAGES)[number];
 

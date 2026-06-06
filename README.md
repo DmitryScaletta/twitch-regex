@@ -11,7 +11,7 @@ Regular expressions for Twitch clips, videos, channels and collections links
   - Collections
 - Regexes as strings (without `^` and `$`)
 - Regexes for exact match (with `^` and `$`)
-- Types for named capturing groups (TypeScript)
+- Types for named capturing groups (TypeScript, Python)
 
 ## Packages
 
@@ -119,20 +119,30 @@ pip install twitch-regex
 
 ```py
 import re
-from twitch_regex import CLIP_REGEX_EXACT, VIDEO_REGEX_STRING, CHANNEL_REGEX_STRING
+from typing import cast
+from twitch_regex import (
+  CLIP_REGEX_EXACT,
+  VIDEO_REGEX_STRING,
+  CHANNEL_REGEX_STRING,
+  ClipGroups,
+  VideoGroups,
+  ChannelGroups,
+)
 
 # Exact match
 clip = 'https://www.twitch.tv/xqc/clip/CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy'
-match = CLIP_REGEX_EXACT.search(clip)
+match = CLIP_REGEX_EXACT.match(clip)
 if match:
-  print(match.groupdict())
+  print(cast(ClipGroups, match.groupdict()))
+  print(match.group(ClipGroups.Names.channel))
 # {'channel': 'xqc', 'slug': 'CulturedAmazingKuduDatSheffy-TiZ_-ixAGYR3y2Uy'}
+# xqc
 
 # Custom regex (global)
 text = '''Look at these videos https://www.twitch.tv/videos/1816688726
 and https://m.twitch.tv/twitch/v/1816688726?t=10s'''
 for match in re.finditer(VIDEO_REGEX_STRING, text):
-  print(match.groupdict())
+  print(cast(VideoGroups, match.groupdict()))
 # {'channel': None, 'id': '1816688726'}
 # {'channel': 'twitch', 'id': '1816688726'}
 
@@ -142,7 +152,7 @@ https://www.twitch.tv/summit1g
 https://m.twitch.tv/xqc
 https://player.twitch.tv/?channel=lirik'''
 for match in re.finditer(f'^{CHANNEL_REGEX_STRING}$', list, re.M):
-  print(match.groupdict())
+  print(cast(ChannelGroups, match.groupdict()))
 # {'channel': 'summit1g'}
 # {'channel': 'xqc'}
 # {'channel': 'lirik'}

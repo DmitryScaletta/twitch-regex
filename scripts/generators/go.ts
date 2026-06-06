@@ -12,24 +12,44 @@ const parseGroupsToGoNames = (name: string, groups: string) => {
     .map((f) => f.trim())
     .filter(Boolean);
   const entries = fields.map((field) => {
-    const [fName] = field.includes('?:') ? field.split('?:') : field.split(':');
+    const optional = field.includes('?:');
+    const [fName] = optional ? field.split('?:') : field.split(':');
     const n = fName!.trim();
-    return { goName: toPascalCase(n), name: n };
+    return { goName: toPascalCase(n), name: n, optional };
   });
-  const structDef = entries.map((e) => `  ${e.goName} string`).join('\n');
+  const structDef = entries
+    .map((e) => `  // ${e.optional ? 'Optional' : 'Required'}\n  ${e.goName} string`)
+    .join('\n');
   const structVal = entries.map((e) => `${e.goName}: "${e.name}"`).join(', ');
-  return `var ${name}Groups = struct {\n${structDef}\n}{ ${structVal} }`;
+  return [
+    `// Maps capture group names to their field names for ${name} URLs.`,
+    `var ${name}Groups = struct {`,
+    structDef,
+    `}{ ${structVal} }`,
+  ].join('\n');
 };
 
 const renderSection = (section: SectionMatchGroups) => {
   const nameUpper = section.name.toUpperCase();
   const regex = jsToPcre(section.regex);
   const names = parseGroupsToGoNames(section.name, section.groups);
+  const stringDoc = [
+    `// Unanchored (without ^ and $) regex pattern as a plain string for ${section.name} URLs.`,
+    `//`,
+    `// See ${section.url}`,
+  ].join('\n');
+  const exactDoc = [
+    `// Anchored (with ^ and $) compiled *regexp.Regexp for exact matches.`,
+    `//`,
+    `// See ${section.url}`,
+  ].join('\n');
   return [
-    `// ${section.name.toLowerCase()}`,
-    `// ${section.url}`,
+    stringDoc,
     `const ${nameUpper}_REGEX_STRING = \`${regex}\``,
+    '',
+    exactDoc,
     `var ${nameUpper}_REGEX_EXACT = regexp.MustCompile("^" + ${nameUpper}_REGEX_STRING + "$")`,
+    '',
     names,
   ].join('\n');
 };
@@ -40,7 +60,7 @@ export const generateGo = async (sections: SectionMatchGroups[], description: st
   const goContent = [
     '// generated',
     '',
-    `// Package twitch_regex ${desc}`,
+    `// Package twitch_regex provides ${desc}.`,
     'package twitch_regex',
     '',
     'import "regexp"',

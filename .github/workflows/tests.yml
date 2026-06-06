@@ -2,28 +2,91 @@ name: Tests
 
 on:
   push:
+    branches: [main]
     paths-ignore:
-      - 'README.md'
+      - '.vscode/**'
+      - '.editorconfig'
       - '.gitignore'
-    branches:
-      - main
+      - 'LICENSE'
   workflow_dispatch:
 
 jobs:
-  tests:
-    name: Tests
+  lint:
+    name: Lint & format
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - name: Use Node.js 24
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v6
         with:
-          node-version: 24
-          cache: 'pnpm'
-      - name: Install dependencies
-        run: pnpm i --frozen-lockfile
-      - name: Run tests
-        run: pnpm test
-      - name: Run type tests
-        run: pnpm test:types
+          cache: true
+      - run: pnpm i --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm fmt:check
+
+  generate:
+    name: Verify generated sources
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v6
+        with:
+          cache: true
+      - run: pnpm build
+      - name: Check working tree is clean
+        run: git diff --exit-code
+
+  test-typescript:
+    name: Test (TypeScript)
+    needs: generate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v6
+        with:
+          cache: true
+      - run: pnpm i --frozen-lockfile
+      - run: pnpm test:ts
+      - run: pnpm test:ts:types
+
+  test-python:
+    name: Test (Python)
+    needs: generate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v6
+        with:
+          standalone: true
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.x'
+      - run: pnpm test:py
+
+  test-rust:
+    name: Test (Rust)
+    needs: generate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v6
+        with:
+          standalone: true
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: packages/rust
+      - run: pnpm test:rs
+
+  test-go:
+    name: Test (Go)
+    needs: generate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v6
+        with:
+          standalone: true
+      - uses: actions/setup-go@v6
+        with:
+          cache-dependency-path: packages/go/go.mod
+      - run: pnpm test:go

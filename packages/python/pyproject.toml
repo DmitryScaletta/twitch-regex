@@ -4,7 +4,7 @@ build-backend = 'flit_core.buildapi'
 
 [project]
 name = 'twitch-regex'
-version = '0.1.3'
+version = '0.1.0'
 description = 'Regular expressions for Twitch clips, videos, channels and collections links'
 keywords = ['regex', 'regexp', 'regular expressions', 'twitch']
 license = { text = 'MIT' }

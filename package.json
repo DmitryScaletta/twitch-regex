@@ -10,7 +10,7 @@
     "test:ts": "pnpm --filter twitch-regex test",
     "test:ts:watch": "pnpm --filter twitch-regex test:watch",
     "test:ts:types": "pnpm --filter twitch-regex test:types",
-    "test:py": "python -m unittest discover -v -s packages/python/tests",
+    "test:py": "PYTHONPATH=packages/python python -m unittest discover -v -s packages/python/tests",
     "test:rs": "cargo test --manifest-path packages/rust/Cargo.toml",
     "test:go": "GOPROXY=off go -C packages/go test -v ./...",
     "lint": "oxlint",
